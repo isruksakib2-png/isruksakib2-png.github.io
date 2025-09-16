@@ -12,17 +12,21 @@
 
 <style>
   /* TAF styling */
-  body 
-{
-    font-family: "Times New Roman", serif;
-    color: #111;
-    padding: 18px;
-    background:
-      linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.15)),
-      url("https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg")
-      no-repeat center center fixed;
-    background-size: cover;
-  }
+body {
+      margin: 0;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      animation: changeBackground 12s infinite; /* 4 images × 3s = 12s */
+    }
+
+    @keyframes changeBackground {
+      0%   { background-image: url("https://images.pexels.com/photos/38136/pexels-photo-38136.jpeg"); }
+      25%  { background-image: url("https://images.pexels.com/photos/1430677/pexels-photo-1430677.jpeg"); }
+      50%  { background-image: url("https://images.pexels.com/photos/3698532/pexels-photo-3698532.jpeg"); }
+      75%  { background-image: url("https://images.pexels.com/photos/28424603/pexels-photo-28424603.jpeg"); }
+      100% { background-image: url("https://images.pexels.com/photos/28424617/pexels-photo-28424617.jpeg"); }
+    }
 { font-family: "Times New Roman", serif; padding:18px; background:#f5f5f5; color:#111; }
   h1 { text-align:center; margin:0 0 14px; font-size:20px; display:flex; align-items:center; justify-content:space-between; }
   .container { display:flex; gap:18px; align-items:flex-start; }
