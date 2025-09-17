@@ -23,7 +23,15 @@ body{
       background-position: center;
       background-attachment: fixed;  /* ✅ Keeps each background fixed */
       animation: changeBackground 60s infinite; /* 5 images × 12s= 60s */
-    }
+    .panel {
+    background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+    backdrop-filter: blur(12px);           /* apply blur to everything behind it */
+    -webkit-backdrop-filter: blur(12px);   /* for Safari support */
+    border-radius: 20px;                    /* rounded corners */
+    padding: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); /* soft shadow */
+}
+}
 
     @keyframes changeBackground {
       0%   { background-image: url("https://images.pexels.com/photos/38136/pexels-photo-38136.jpeg"); }
@@ -32,7 +40,7 @@ body{
       60%  { background-image: url("https://images.pexels.com/photos/3698532/pexels-photo-3698532.jpeg"); }
       80%  { background-image: url("https://images.pexels.com/photos/28424603/pexels-photo-28424603.jpeg"); }
       100% { background-image: url("https://images.pexels.com/photos/28424617/pexels-photo-28424617.jpeg"); }
-    }
+ }
 { font-family: "Times New Roman", serif; padding:18px; background:#f5f5f5; color:#111; }
   h1 { text-align:center; margin:0 0 14px; font-size:20px; display:flex; align-items:center; justify-content:space-between; }
   .container { display:flex; gap:18px; align-items:flex-start; }
