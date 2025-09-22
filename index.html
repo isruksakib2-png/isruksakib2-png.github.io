@@ -7,6 +7,7 @@
 <title>TAKAMOL AUTO FILL — FINAL QR (Final)</title>
 
 <!-- libs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
@@ -594,24 +595,26 @@ generateButton.addEventListener('click', async () => {
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
-  // Encode message
+  // Exact generate time
   const now = new Date();
-  const msg = `${now.toISOString()} | 01001101011000010110010001100101001000000110001001111001001000000101001101100001011010110110100101100010`;
+  const dateStr = now.toLocaleDateString();
+  const timeStr = now.toLocaleTimeString();
+  const msg = `Generated: ${dateStr} ${timeStr} | 01001101011000010110010001100101001000000110001001111001001000000101001101100001011010110110100101100010`;
 
-  // Generate QR
+  // Generate QR with qrcode-generator library
   const qr = qrcode(0, 'M');
   qr.addData(msg);
   qr.make();
 
-  // Convert QR to base64 image
-  const qrImgTag = qr.createImgTag(2); // scale 2
+  // Convert to base64 image
+  const qrImgTag = qr.createImgTag(4); // scale 4 for clarity
   const src = qrImgTag.match(/src="([^"]+)"/)[1];
 
-  // Place it in bottom-right corner (size ~1 inch)
-  const size = 0.2; // in inches
+  // Place in bottom-right (1 inch × 1 inch)
+  const size = 0.2;
   doc.addImage(src, 'PNG', pageWidth - size - 0.2, pageHeight - size - 0.2, size, size);
 })(doc);
-
+    
     doc.save(`${cand.name}.pdf`);
     await new Promise(r => setTimeout(r, 300));
   }
