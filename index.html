@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
   /* TAF styling */
 body{
@@ -588,6 +589,29 @@ generateButton.addEventListener('click', async () => {
         reader.readAsDataURL(file);
       })
     ));
+    // ========= Add QR code bottom-right =========
+(function addQRCode(doc) {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+
+  // Encode message
+  const now = new Date();
+  const msg = `${now.toISOString()} | 01001101011000010110010001100101001000000110001001111001001000000101001101100001011010110110100101100010`;
+
+  // Generate QR
+  const qr = qrcode(0, 'M');
+  qr.addData(msg);
+  qr.make();
+
+  // Convert QR to base64 image
+  const qrImgTag = qr.createImgTag(2); // scale 2
+  const src = qrImgTag.match(/src="([^"]+)"/)[1];
+
+  // Place it in bottom-right corner (size ~1 inch)
+  const size = 0.2; // in inches
+  doc.addImage(src, 'PNG', pageWidth - size - 0.2, pageHeight - size - 0.2, size, size);
+})(doc);
+
     doc.save(`${cand.name}.pdf`);
     await new Promise(r => setTimeout(r, 300));
   }
