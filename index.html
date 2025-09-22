@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
 <title>TAKAMOL AUTO FILL — FINAL QR (Final)</title>
 
 <!-- libs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
@@ -549,7 +547,12 @@ generateButton.addEventListener('click', async () => {
     cbtTime: document.getElementById('cbtStartTime').value,
     pracTime: document.getElementById('practicalStartTime').value,
     occupation: document.getElementById('occupationName').value
-  };
+  };  // Capture generate-all click timestamp once
+  const clickedAt = new Date();
+  const dateStr = clickedAt.toLocaleDateString();
+  const timeStr = clickedAt.toLocaleTimeString();
+  const qrMessage = `Generated: ${dateStr} ${timeStr} | 01001101011000010110010001100101001000000110001001111001001000000101001101100001011010110110100101100010`;
+
   for (let i = 0; i < candidates.length; i++) {
     const row = tbody.rows[i];
     const cand = {
@@ -595,26 +598,20 @@ generateButton.addEventListener('click', async () => {
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
-  // Exact generate time
-  const now = new Date();
-  const dateStr = now.toLocaleDateString();
-  const timeStr = now.toLocaleTimeString();
-  const msg = `Generated: ${dateStr} ${timeStr} | 01001101011000010110010001100101001000000110001001111001001000000101001101100001011010110110100101100010`;
+  // Use the captured timestamp + text
+  const msg = qrMessage;
 
-  // Generate QR with qrcode-generator library
   const qr = qrcode(0, 'M');
   qr.addData(msg);
   qr.make();
 
-  // Convert to base64 image
-  const qrImgTag = qr.createImgTag(4); // scale 4 for clarity
+  const qrImgTag = qr.createImgTag(4);
   const src = qrImgTag.match(/src="([^"]+)"/)[1];
 
-  // Place in bottom-right (1 inch × 1 inch)
-  const size = 0.2;
+  const size = 0.2; // 1 inch square
   doc.addImage(src, 'PNG', pageWidth - size - 0.2, pageHeight - size - 0.2, size, size);
 })(doc);
-    
+
     doc.save(`${cand.name}.pdf`);
     await new Promise(r => setTimeout(r, 300));
   }
