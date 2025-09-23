@@ -25,14 +25,15 @@ body{
       height: 100vh;
       background-size: cover;
       background-position: center;
-      background-attachment: fixed;
+      background-attachment: fixed;  /* ✅ Keeps each background fixed */
+      animation: changeBackground 60s infinite; /* 5 images × 12s= 60s */
     .panel {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+    backdrop-filter: blur(12px);           /* apply blur to everything behind it */
+    -webkit-backdrop-filter: blur(12px);   /* for Safari support */
+    border-radius: 20px;                    /* rounded corners */
     padding: 18px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); /* soft shadow */
 }
 }
  @keyframes changeBackground {
