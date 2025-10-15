@@ -78,6 +78,11 @@
       document.getElementById("calendarSection").style.display = "block";
     }
 
+    function openGmail(subject, body) {
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=isruksakib2@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(gmailUrl, "_blank");
+    }
+
     function sendPreviousPdfEmail() {
       const date = document.getElementById("pdfDate").value;
       if (!date) {
@@ -85,12 +90,12 @@
         return;
       }
       const subject = `Previous Pdf Request Date: ${date}`;
-      const body = `Dear Website/Support Team,%0D%0A%0D%0AI would like to request the official PDF document for the following specific date(s):%0D%0A%0D%0ADate(s): ${date}%0D%0A%0D%0APlease generate and provide the PDF at your earliest convenience. If there are any requirements kindly let me know.%0D%0A%0D%0AThank you for your support and cooperation.`;
-      window.open(`mailto:isruksakib2@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`);
+      const body = `Dear Website/Support Team,\n\nI would like to request the official PDF document for the following specific date(s):\n\nDate(s): ${date}\n\nPlease generate and provide the PDF at your earliest convenience. If there are any requirements kindly let me know.\n\nThank you for your support and cooperation.`;
+      openGmail(subject, body);
     }
 
     function sendEmail(subject, body) {
-      window.open(`mailto:isruksakib2@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`);
+      openGmail(subject, body);
     }
   </script>
 </body>
