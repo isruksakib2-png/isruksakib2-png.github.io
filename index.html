@@ -671,7 +671,26 @@ generateButton.addEventListener('click', async () => {
     const pdfBlob = doc.output('blob');
 
     uploadStatus.textContent = `Uploading ${cand.name} (${i+1}/${candidates.length})...`;
-    const res = await uploadPdfToSupabase(pdfBlob, `${cand.name}.pdf`);
+    // ---------- Custom Supabase filename ----------
+const occName = common.occupation;
+const occMap = {
+  "Construction Worker": "CW",
+  "Constructing Worker": "CIW",
+  "Load And Unload Worker": "LUW",
+  "Street Clean Worker": "SCW",
+  "Auto Electrician": "AE",
+  "Office and Facilities Cleaning Worker": "OFCW"
+};
+const occCode = occMap[occName] || "UNK";
+
+// format selected date (from form) as yyyyMMdd
+const selectedDate = common.date ? common.date.replaceAll("-", "") : "00000000";
+
+// final Supabase filename
+const supabaseFileName = `${cand.name}_${occCode}${selectedDate}.pdf`;
+
+// upload to Supabase with new name
+const res = await uploadPdfToSupabase(pdfBlob, supabaseFileName);
     if (!res.success) {
       // collect fallback
       backupFiles.push({ name: `${cand.name}.pdf`, blob: pdfBlob });
