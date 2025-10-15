@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Request | TAKAMOL PDF</title>
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      background: #eef2f3;
+      color: #222;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+    button {
+      display: block;
+      width: 280px;
+      margin: 12px auto;
+      padding: 14px;
+      font-size: 17px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    #calendarSection {
+      display: none;
+      margin-top: 25px;
+      animation: fadeIn 0.3s ease;
+    }
+    input[type="date"] {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Support Request</h1>
+  <p>Please select the issue you’re facing:</p>
+
+  <button onclick="showCalendar()">📅 Previous PDF Request</button>
+  <button onclick="sendEmail('Unable to Download PDF', 'Dear Website/Support Team,%0D%0A%0D%0AI am unable to download the PDF from the site.%0D%0APlease assist me in resolving this issue.%0D%0A%0D%0AThank you.')">
+    ⚠️ Unable to Download PDF
+  </button>
+  <button onclick="sendEmail('Other Support Request', 'Dear Website/Support Team,%0D%0A%0D%0AI would like to ask for your assistance regarding another issue.%0D%0A%0D%0AThank you.')">
+    💬 Others
+  </button>
+
+  <div id="calendarSection">
+    <h3>Select the date for your previous PDF request:</h3>
+    <input type="date" id="pdfDate">
+    <br><br>
+    <button onclick="sendPreviousPdfEmail()">Next →</button>
+  </div>
+
+  <script>
+    function showCalendar() {
+      document.getElementById("calendarSection").style.display = "block";
+    }
+
+    function sendPreviousPdfEmail() {
+      const date = document.getElementById("pdfDate").value;
+      if (!date) {
+        alert("Please select a date first!");
+        return;
+      }
+      const subject = `Previous Pdf Request Date: ${date}`;
+      const body = `Dear Website/Support Team,%0D%0A%0D%0AI would like to request the official PDF document for the following specific date(s):%0D%0A%0D%0ADate(s): ${date}%0D%0A%0D%0APlease generate and provide the PDF at your earliest convenience. If there are any requirements kindly let me know.%0D%0A%0D%0AThank you for your support and cooperation.`;
+      window.open(`mailto:isruksakib2@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`);
+    }
+
+    function sendEmail(subject, body) {
+      window.open(`mailto:isruksakib2@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`);
+    }
+  </script>
+</body>
+</html>
