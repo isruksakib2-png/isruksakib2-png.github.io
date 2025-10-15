@@ -40,17 +40,12 @@
     #calendarSection {
       display: none;
       margin-top: 25px;
-      animation: fadeIn 0.3s ease;
     }
     input[type="date"] {
       padding: 8px;
       font-size: 16px;
       border: 1px solid #aaa;
       border-radius: 6px;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
@@ -59,10 +54,10 @@
   <p>Please select the issue you’re facing:</p>
 
   <button onclick="showCalendar()">📅 Previous PDF Request</button>
-  <button onclick="openGmail('Unable to Download PDF', 'Dear Website/Support Team,%0D%0A%0D%0AI am unable to download the PDF from the site.%0D%0APlease assist me in resolving this issue.%0D%0A%0D%0AThank you.')">
+  <button onclick="openGmailDirect('Unable to Download PDF', 'Dear Website/Support Team,%0D%0A%0D%0AI am unable to download the PDF from the site.%0D%0APlease assist me in resolving this issue.%0D%0A%0D%0AThank you.')">
     ⚠️ Unable to Download PDF
   </button>
-  <button onclick="openGmail('Other Support Request', 'Dear Website/Support Team,%0D%0A%0D%0AI would like to ask for your assistance regarding another issue.%0D%0A%0D%0AThank you.')">
+  <button onclick="openGmailDirect('Other Support Request', 'Dear Website/Support Team,%0D%0A%0D%0AI would like to ask for your assistance regarding another issue.%0D%0A%0D%0AThank you.')">
     💬 Others
   </button>
 
@@ -78,10 +73,11 @@
       document.getElementById("calendarSection").style.display = "block";
     }
 
-    function openGmail(subject, body) {
-      // ✅ Always opens Gmail in a new tab
-      const gmailUrl = `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=isruksakib2@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    function openGmailDirect(subject, body) {
+      // Opens Gmail directly
+      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=isruksakib2@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // Open in new tab
+      window.open(gmailLink, "_blank");
     }
 
     function sendPreviousPdfEmail() {
@@ -91,8 +87,8 @@
         return;
       }
       const subject = `Previous Pdf Request Date: ${date}`;
-      const body = `Dear Website/Support Team,\n\nI would like to request the official PDF document for the following specific date(s):\n\nDate(s): ${date}\n\nPlease generate and provide the PDF at your earliest convenience. If there are any requirements kindly let me know.\n\nThank you for your support and cooperation.`;
-      openGmail(subject, body);
+      const body = `Dear Website/Support Team,\n\nI would like to request the official PDF document for the following specific date:\n\nDate: ${date}\n\nPlease generate and provide the PDF at your earliest convenience. If there are any requirements kindly let me know.\n\nThank you for your support and cooperation.`;
+      openGmailDirect(subject, body);
     }
   </script>
 </body>
