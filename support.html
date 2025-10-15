@@ -59,10 +59,10 @@
   <p>Please select the issue you’re facing:</p>
 
   <button onclick="showCalendar()">📅 Previous PDF Request</button>
-  <button onclick="sendEmail('Unable to Download PDF', 'Dear Website/Support Team,%0D%0A%0D%0AI am unable to download the PDF from the site.%0D%0APlease assist me in resolving this issue.%0D%0A%0D%0AThank you.')">
+  <button onclick="openGmail('Unable to Download PDF', 'Dear Website/Support Team,%0D%0A%0D%0AI am unable to download the PDF from the site.%0D%0APlease assist me in resolving this issue.%0D%0A%0D%0AThank you.')">
     ⚠️ Unable to Download PDF
   </button>
-  <button onclick="sendEmail('Other Support Request', 'Dear Website/Support Team,%0D%0A%0D%0AI would like to ask for your assistance regarding another issue.%0D%0A%0D%0AThank you.')">
+  <button onclick="openGmail('Other Support Request', 'Dear Website/Support Team,%0D%0A%0D%0AI would like to ask for your assistance regarding another issue.%0D%0A%0D%0AThank you.')">
     💬 Others
   </button>
 
@@ -79,8 +79,9 @@
     }
 
     function openGmail(subject, body) {
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=isruksakib2@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.open(gmailUrl, "_blank");
+      // ✅ Always opens Gmail in a new tab
+      const gmailUrl = `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=isruksakib2@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(gmailUrl, "_blank", "noopener,noreferrer");
     }
 
     function sendPreviousPdfEmail() {
@@ -91,10 +92,6 @@
       }
       const subject = `Previous Pdf Request Date: ${date}`;
       const body = `Dear Website/Support Team,\n\nI would like to request the official PDF document for the following specific date(s):\n\nDate(s): ${date}\n\nPlease generate and provide the PDF at your earliest convenience. If there are any requirements kindly let me know.\n\nThank you for your support and cooperation.`;
-      openGmail(subject, body);
-    }
-
-    function sendEmail(subject, body) {
       openGmail(subject, body);
     }
   </script>
