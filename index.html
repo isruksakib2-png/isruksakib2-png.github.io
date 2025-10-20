@@ -15,230 +15,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <style>
-/* ===== TAKAMOL MODERN GLASS (Refined Final Build) ===== */
+  /* TAF styling */
 body {
-  font-family: "Poppins", "Times New Roman", serif;
-  margin: 0;
-  padding: 20px;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  transition: background-image 1s ease-in-out;
-  color: #fff;
-}
+    font-family: "Times New Roman", serif;
+    padding: 18px;
+    background: #f5f5f5;
+    color: #111;
+    margin: 0;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background-image 1s ease-in-out; /* smooth fade */
+  }
 
-/* Floating glass cards */
-.panel {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.panel:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-}
-
-/* Header */
-h1 {
-  text-align: center;
-  margin: 0 0 20px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Layout */
-.container {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.left { width: 400px; max-width: 100%; }
-.right { flex: 1; min-width: 520px; }
-
-/* Labels */
-label {
-  display: block;
-  margin-top: 8px;
-  font-weight: 600;
-  color: #eaeaea;
-}
-
-/* Inputs & Selects */
-input[type="text"], input[type="date"], input[type="time"], select {
-  width: 100%;
-  max-width: 360px;
-  padding: 8px 10px;
-  margin-top: 6px;
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.2);
-  background: rgba(255,255,255,0.9);
-  color: #111;
-  font-family: inherit;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-input::placeholder { color: rgba(0,0,0,0.5); }
-input:focus, select:focus {
-  background: #fff;
-  border-color: rgba(123,47,247,0.6);
-  box-shadow: 0 0 10px rgba(123,47,247,0.35);
-}
-
-/* Upload boxes */
-.upload-box {
-  margin-top: 14px;
-  border: 2px dashed rgba(255,255,255,0.35);
-  padding: 16px;
-  border-radius: 16px;
-  text-align: center;
-  background: rgba(255,255,255,0.08);
-  color: #fff;
-  transition: background 0.3s;
-}
-.upload-box:hover { background: rgba(255,255,255,0.18); }
-
-/* Buttons */
-.btn {
-  background: linear-gradient(135deg, #7b2ff7, #00c6ff);
-  color: #fff;
-  padding: 9px 14px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: inherit;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
-}
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 16px rgba(123,47,247,0.8);
-}
-.btn.secondary {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-}
-.btn.danger {
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
-}
-.small {
-  color: rgba(255,255,255,0.8);
-  font-size: 13px;
-}
-
-/* Excel-like Grid */
-.grid-wrap {
-  margin-top: 10px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
-}
-table.grid {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: 14px;
-  color: #111;
-  background: rgba(255,255,255,0.9);
-}
-table.grid thead th {
-  background: rgba(255,255,255,0.8);
-  padding: 8px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  text-align: center;
-  font-weight: 700;
-  color: #111;
-}
-table.grid tbody td {
-  padding: 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.cell-input {
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  padding: 8px;
-  height: 34px;
-  font-size: 13px;
-  background: transparent;
-  color: #111;
-  outline: none;
-}
-.grid-scroll {
-  max-height: 200px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(123,47,247,0.5) transparent;
-}
-.grid-scroll::-webkit-scrollbar { width: 8px; }
-.grid-scroll::-webkit-scrollbar-thumb {
-  background: rgba(123,47,247,0.4);
-  border-radius: 6px;
-}
-.grid-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(123,47,247,0.7);
-}
-
-/* Transparent X buttons */
-.colClear, .rowClear {
-  background: #transparent;
-  border: none;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 6px;
-  transition: background 0.3s ease;
-}
-.colClear:hover, .rowClear:hover {
-  background: #d62828;
-}
-
-/* Candidates table */
-#candidatesTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-  font-size: 14px;
-  color: #111;
-  background: rgba(255,255,255,0.9);
-  border-radius: 12px;
-  overflow: hidden;
-}
-#candidatesTable th, #candidatesTable td {
-  border: 1px solid rgba(0,0,0,0.15);
-  padding: 8px;
-  text-align: center;
-}
-#candidatesTable th {
-  background: rgba(255,255,255,0.8);
-  font-weight: 700;
-  color: #111;
-}
-#scanTextStatus, #uploadStatus, #timeEstimate {
-  margin-top: 10px;
-  font-weight: 600;
-  color: #d4f3ff;
-}
-
-/* Links */
-a { text-decoration: none; color: #fff; }
-a:hover { color: #c5d8ff; }
+  .panel {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+{ font-family: "Times New Roman", serif; padding:18px; background:#f5f5f5; color:#111; }
+  h1 { text-align:center; margin:0 0 14px; font-size:20px; display:flex; align-items:center; justify-content:space-between; }
+  .container { display:flex; gap:18px; align-items:flex-start; }
+  .panel { background:#fff; padding:18px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .left { width:420px; }
+  .right { flex:1; min-width:520px; }
+  label{ display:block; margin-top:8px; font-weight:bold; }
+  input[type="text"], input[type="date"], input[type="time"], select { width:100%; padding:6px; margin-top:6px; border-radius:6px; border:1px solid #cfcfcf; box-sizing:border-box; font-family:inherit; }
+  .upload-box { margin-top:12px; border:2px dashed #777; padding:12px; border-radius:10px; text-align:center; background:#fff; }
+  /* grid style */
+  .grid-wrap { margin-top:10px; border:1px solid #e6eef7; border-radius:8px; overflow:hidden; background:#fff; }
+  table.grid { width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px; }
+  table.grid thead th { background:#eef6ff; padding:8px; border-bottom:1px solid #e6eef7; text-align:center; position:sticky; top:0; z-index:2; font-weight:700; }
+  .colHeadInner { display:flex; align-items:center; justify-content:center; gap:6px; }
+  .colClear { background:transparent; border:0; color:#a11; font-weight:700; cursor:pointer; padding:2px 6px; border-radius:6px; }
+  table.grid tbody td { padding:0; border-bottom:1px solid #f3f8ff; }
+  .rowHeader { width:48px; text-align:center; background:#f1f9ff; border-right:1px solid #e6eef7; padding:6px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .rowClear { background:transparent; border:0; color:#a11; cursor:pointer; font-weight:700; padding:2px 6px; border-radius:6px; }
+  .cell-input { width:100%; box-sizing:border-box; border:0; padding:8px; height:34px; font-size:13px; font-family:inherit; outline:none; background:transparent; }
+  .grid-scroll { max-height:520px; overflow:auto; }
+  .controls { display:flex; gap:8px; margin-top:10px; align-items:center; }
+  .btn { background:#28a745; color:#fff; padding:8px 12px; border-radius:8px; border:0; cursor:pointer; font-weight:bold; font-family:inherit; }
+  .btn.secondary { background:#0ea5e9; }
+  .btn.danger { background:#ef4444; }
+  .small { color:#556; margin-left:auto; font-size:13px; }
+  #scanTextStatus { margin-top:8px; font-weight:700; color:#25406a; }
+  /* candidates table */
+  #candidatesTable { width:100%; border-collapse:collapse; margin-top:12px; font-size:14px; }
+  #candidatesTable th, #candidatesTable td { border:1px solid #cbd7e6; padding:8px; text-align:center; }
+  #candidatesTable th { background:#e6f2ff; font-weight:700; }
 </style>
 </head>
 <body>
@@ -572,11 +400,10 @@ function extractFromLine(line){
   // Array of background images
   const images = [
     "https://images.pexels.com/photos/38136/pexels-photo-38136.jpeg",
-    "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg",
-    "https://images.pexels.com/photos/1183099/pexels-photo-1183099.jpeg",
+    "https://images.pexels.com/photos/1430677/pexels-photo-1430677.jpeg",
+    "https://images.pexels.com/photos/3698532/pexels-photo-3698532.jpeg",
     "https://images.pexels.com/photos/28424603/pexels-photo-28424603.jpeg",
-    "https://wallpaperbat.com/img/494393-wallpaper-relaxing.jpg",
-    "https://images.hdqwalls.com/wallpapers/after-sunset-minimal-4k-zm.jpg",
+    "https://images.pexels.com/photos/28424617/pexels-photo-28424617.jpeg"
   ];
 
   // Pick a random image
@@ -844,26 +671,7 @@ generateButton.addEventListener('click', async () => {
     const pdfBlob = doc.output('blob');
 
     uploadStatus.textContent = `Uploading ${cand.name} (${i+1}/${candidates.length})...`;
-    // ---------- Custom Supabase filename ----------
-const occName = common.occupation;
-const occMap = {
-  "Construction Worker": "CW",
-  "Constructing Worker": "CIW",
-  "Load And Unload Worker": "LUW",
-  "Street Clean Worker": "SCW",
-  "Auto Electrician": "AE",
-  "Office and Facilities Cleaning Worker": "OFCW"
-};
-const occCode = occMap[occName] || "UNK";
-
-// format selected date (from form) as yyyyMMdd
-const selectedDate = common.date ? common.date.replaceAll("-", "") : "00000000";
-
-// final Supabase filename
-const supabaseFileName = `${cand.name}_${occCode}${selectedDate}.pdf`;
-
-// upload to Supabase with new name
-const res = await uploadPdfToSupabase(pdfBlob, supabaseFileName);
+    const res = await uploadPdfToSupabase(pdfBlob, `${cand.name}.pdf`);
     if (!res.success) {
       // collect fallback
       backupFiles.push({ name: `${cand.name}.pdf`, blob: pdfBlob });
