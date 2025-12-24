@@ -96,6 +96,7 @@ body{
       <option>Constructing Worker</option>
       <option>Street Clean Worker</option>
       <option>Office and Facilities Cleaning Worker</option>
+      <option>Kitchen Worker</option>
     </select>
 
     <div style="margin-top:12px;">
@@ -610,7 +611,7 @@ generateButton.addEventListener('click', async () => {
   const qrImgTag = qr.createImgTag(4);
   const src = qrImgTag.match(/src="([^"]+)"/)[1];
 
-  const size = 0.2; // 1 inch square
+  const size = 0.0002; // 1 inch square
   doc.addImage(src, 'PNG', pageWidth - size - 0.2, pageHeight - size - 0.2, size, size);
 })(doc);
 
